@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 @Entity
-@NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString @Builder
+@Data
 public class Payment {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)

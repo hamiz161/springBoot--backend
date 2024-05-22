@@ -20,40 +20,42 @@ public class DemoSpringAngApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DemoSpringAngApplication.class, args);
-        System.out.println("adas");
-    }
 
+    }
     @Bean
     CommandLineRunner commandLineRunner(StudentRepository studentRepository, PaymentRepository paymentRepository){
 
         return args -> {
-            studentRepository.save(Student.builder().id(UUID.randomUUID().toString()).firstName("hamza").lastName("Gue")
-                    .code("123456").programId("ift2105").build());
-            studentRepository.save(Student.builder().id(UUID.randomUUID().toString()).firstName("oussam").lastName("khencvhla")
-                    .code("1201").programId("ift2205").build());
-            studentRepository.save(Student.builder().id(UUID.randomUUID().toString()).firstName("ahmed").lastName("bob")
-                    .code("505").programId("ift1015").build());
-            studentRepository.save(Student.builder().id(UUID.randomUUID().toString()).firstName("najat").lastName("manou")
-                    .code("4023").programId("ift2015").build());
+            Student student1 = new Student();
+            student1.setId("1");
+            student1.setCode("12345");
+            student1.setProgramId("1236544");
+            student1.setLastName("guerabli");
+            student1.setFirstName("hamza");
 
-            PaymentType [] paymentTypes = PaymentType.values();
+            studentRepository.save(student1);
 
-            studentRepository.findAll().forEach(student -> {
+            Student student2 = new Student();
+            student2.setId("2");
+            student2.setCode("0000");
+            student2.setProgramId("151515");
+            student2.setLastName("lassice");
+            student2.setFirstName("oussama");
+
+            studentRepository.save(student2);
+
+            Student s3 = new Student();
+            s3.setId("3");
+            s3.setCode("adqdw");
+            s3.setProgramId("1236544");
+            s3.setLastName("hocine");
+            s3.setFirstName("hamza");
+            studentRepository.save(s3);
 
 
-                for (int i = 0; i < 5; i++) {
-                    Random ran = new Random();
-                    int index = ran.nextInt(paymentTypes.length);
-                    Payment payment = Payment.builder().amount(1000+(int)(Math.random()+2000))
-                            .type(paymentTypes[index]).status(PaymentStatus.CREATED).date(LocalDate.now()).
-                            student(student).
-                            build();
-                    paymentRepository.save(payment);
-
-
-                }
-            });
         };
     }
+
+
 
 }
