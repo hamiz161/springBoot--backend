@@ -9,5 +9,6 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student,String> {
 
     List <Student> findByProgramId(String programId);
+    List <Student> findByCode(String code);
 
 }

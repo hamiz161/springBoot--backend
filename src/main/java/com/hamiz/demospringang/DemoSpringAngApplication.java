@@ -1,9 +1,5 @@
 package com.hamiz.demospringang;
-
-import com.hamiz.demospringang.entities.Payment;
-import com.hamiz.demospringang.entities.PaymentType;
 import com.hamiz.demospringang.entities.Student;
-import com.hamiz.demospringang.entities.PaymentStatus;
 import com.hamiz.demospringang.repository.PaymentRepository;
 import com.hamiz.demospringang.repository.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -11,9 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.time.LocalDate;
-import java.util.Random;
-import java.util.UUID;
+
 
 @SpringBootApplication
 public class DemoSpringAngApplication {

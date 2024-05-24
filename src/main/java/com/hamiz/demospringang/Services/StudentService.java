@@ -16,14 +16,21 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     public List<Student> getAllStudent(){
+
         return studentRepository.findAll();
     }
 
     public Optional<Student> getStudentById(String id){
+
         return studentRepository.findById(id);
     }
+
+
     public List<Student> getStudentByProgramId(String programId){
         return  studentRepository.findByProgramId(programId);
+    }
+    public List<Student> getStudentByCode(String code){
+        return  studentRepository.findByCode(code);
     }
 
     public void deleteUser(String id){

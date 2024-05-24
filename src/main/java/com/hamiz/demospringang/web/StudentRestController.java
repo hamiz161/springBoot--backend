@@ -12,12 +12,14 @@ import java.util.List;
 
 @RestController
 
+
 public class StudentRestController {
     @Autowired
     private StudentService studentService;
 
     @GetMapping("/students")
     public List<Student> getAllStudent(){
+
         return  studentService.getAllStudent();
     }
     @GetMapping("/students/{id}")
@@ -25,16 +27,22 @@ public class StudentRestController {
         return studentService.getStudentById(id).get();
 
     }
-    @GetMapping("delete/{id}")
+    @PutMapping("/delete/{id}")
 
     public void deleteStudent(@PathVariable String id){
 
         studentService.deleteUser(id);
     }
-    @GetMapping("/studentsByProgramId")
+    @GetMapping("/studentsProgram")
 
-    public List<Student> getStudentByProgramId(@RequestParam String programId){
-        return studentService.getStudentByProgramId(programId);
+    public List<Student> getStudentByProgramId(@RequestParam String program){
+        return studentService.getStudentByProgramId(program);
+    }
+
+    @GetMapping("/studentsCode")
+
+    public List<Student> getStudentByCode(@RequestParam String code){
+        return  studentService.getStudentByCode(code);
     }
 
 

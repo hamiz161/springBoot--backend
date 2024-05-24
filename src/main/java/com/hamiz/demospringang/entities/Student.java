@@ -11,7 +11,7 @@ import lombok.*;
 public class Student {
 
     @Id
-
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String firstName ;
     private String lastName;
@@ -21,7 +21,5 @@ public class Student {
     @Column (unique = true)
     private String code;
     private String photo ;
-
-
 
 }
