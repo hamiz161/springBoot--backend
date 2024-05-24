@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Entity
 public class Payment {
 
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
 

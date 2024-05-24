@@ -1,23 +1,23 @@
 package com.hamiz.demospringang.web;
 
 import com.hamiz.demospringang.Services.StudentService;
-import com.hamiz.demospringang.entities.Payment;
 import com.hamiz.demospringang.entities.Student;
-import com.hamiz.demospringang.repository.PaymentRepository;
-import com.hamiz.demospringang.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 
+@RequestMapping
 public class StudentRestController {
     @Autowired
     private StudentService studentService;
 
     @GetMapping("/students")
     public List<Student> getAllStudent(){
+
         return  studentService.getAllStudent();
     }
     @GetMapping("/students/{id}")
@@ -25,18 +25,37 @@ public class StudentRestController {
         return studentService.getStudentById(id).get();
 
     }
-    @GetMapping("delete/{id}")
+    @DeleteMapping ("/students/{id}")
 
     public void deleteStudent(@PathVariable String id){
 
-        studentService.deleteUser(id);
+        studentService.deleteStudent(id);
     }
-    @GetMapping("/studentsByProgramId")
+    @GetMapping("/studentsProgram")
 
-    public List<Student> getStudentByProgramId(@RequestParam String programId){
-        return studentService.getStudentByProgramId(programId);
+    public List<Student> getStudentByProgramId(@RequestParam String program){
+        return studentService.getStudentByProgramId(program);
     }
 
+    @GetMapping("/studentsCode")
+
+    public List<Student> getStudentByCode(@RequestParam String code){
+
+        return  studentService.getStudentByCode(code);
+    }
+    @PostMapping("(/students")
+
+    public Student createStudent(@RequestBody Student student){
+        return studentService.saveStudent(student);
+    }
+
+
+
+    @PutMapping("/students/{id}")
+
+    public Student updateStudent(@PathVariable String id,@RequestBody Student student){
+        return studentService.updateStudent(id,student);
+    }
 
 
 }
