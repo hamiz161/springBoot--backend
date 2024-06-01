@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface StudentRepository extends JpaRepository<Student,String> {
+public interface StudentRepository extends JpaRepository<Student,Long> {
 
     List <Student> findByProgramId(String programId);
     List <Student> findByCode(String code);

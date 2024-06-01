@@ -13,8 +13,8 @@ import lombok.*;
 public class Student {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String firstName ;
     private String lastName;
 

@@ -1,12 +1,16 @@
 package com.hamiz.demospringang.web;
 
 import com.hamiz.demospringang.Services.StudentService;
+import com.hamiz.demospringang.dtos.StudentRepense;
 import com.hamiz.demospringang.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static jakarta.persistence.GenerationType.UUID;
 
 @RestController
 
@@ -16,18 +20,20 @@ public class StudentRestController {
     private StudentService studentService;
 
     @GetMapping("/students")
-    public List<Student> getAllStudent(){
+    public  ResponseEntity<List<StudentRepense>>getAllStudent(){
 
-        return  studentService.getAllStudent();
+        List<StudentRepense> students = studentService.getAllStudent();
+        return ResponseEntity.ok(students);
     }
     @GetMapping("/students/{id}")
-    public Student getStudent( @PathVariable String id){
-        return studentService.getStudentById(id).get();
-
+    public ResponseEntity<StudentRepense> getStudentById(@PathVariable Long id) {
+        StudentRepense student = studentService.getStudentById(id);
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
+
     @DeleteMapping ("/students/{id}")
 
-    public void deleteStudent(@PathVariable String id){
+    public void deleteStudent(@PathVariable Long id){
 
         studentService.deleteStudent(id);
     }
@@ -43,17 +49,23 @@ public class StudentRestController {
 
         return  studentService.getStudentByCode(code);
     }
-    @PostMapping("(/students")
+    @PostMapping("/students")
 
     public Student createStudent(@RequestBody Student student){
+        System.out.println(student.getId());
         return studentService.saveStudent(student);
     }
+//    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+//
+//        Student savedStudent = studentService.saveStudent(student);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
+//    }
 
 
 
     @PutMapping("/students/{id}")
 
-    public Student updateStudent(@PathVariable String id,@RequestBody Student student){
+    public Student updateStudent(@PathVariable Long id,@RequestBody Student student){
         return studentService.updateStudent(id,student);
     }
 
