@@ -2,6 +2,7 @@ package com.hamiz.demospringang.web;
 
 import com.hamiz.demospringang.Services.StudentService;
 import com.hamiz.demospringang.dtos.StudentRepense;
+import com.hamiz.demospringang.dtos.StudentRequest;
 import com.hamiz.demospringang.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static jakarta.persistence.GenerationType.UUID;
 
 @RestController
 
@@ -51,22 +50,17 @@ public class StudentRestController {
     }
     @PostMapping("/students")
 
-    public Student createStudent(@RequestBody Student student){
-        System.out.println(student.getId());
-        return studentService.saveStudent(student);
+    public ResponseEntity<StudentRepense>  createStudent(@RequestBody StudentRequest studentRequest){
+        StudentRepense savedStudent = studentService.saveStudent(studentRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
+
     }
-//    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-//
-//        Student savedStudent = studentService.saveStudent(student);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
-//    }
-
-
 
     @PutMapping("/students/{id}")
 
-    public Student updateStudent(@PathVariable Long id,@RequestBody Student student){
-        return studentService.updateStudent(id,student);
+    public ResponseEntity<StudentRepense> updateStudent(@PathVariable Long id,@RequestBody StudentRequest studentRequest){
+        StudentRepense savedStudent = studentService.updateStudent(id,studentRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
     }
 
 

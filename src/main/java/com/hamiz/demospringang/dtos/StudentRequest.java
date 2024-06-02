@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 
 
 public class StudentRequest {
@@ -13,7 +15,6 @@ public class StudentRequest {
     private String lastName;
 
     private String programId;
-
 
     private String code;
     private String photo ;

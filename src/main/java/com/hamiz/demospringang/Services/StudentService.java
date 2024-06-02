@@ -8,6 +8,7 @@ import com.hamiz.demospringang.repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,28 +40,30 @@ public class StudentService {
 
     }
 
-    public StudentRepense getStudentById(Long id){
+    public StudentRepense getStudentById(Long id)  {
         Optional<Student> studentOptional = studentRepository.findById(id);
-        if(studentOptional.isPresent()){
-            Student student =studentOptional.get();
-            return studentMapper.toDto(student);
-        }else{
-            return null;
-        }
+        return studentOptional.map(studentMapper::toDto).orElseThrow(
+                ()->new RuntimeException(String.format("notFound %s",id)));
 
 
     }
 
 
     public List<Student> getStudentByProgramId(String programId){
+
+
         return  studentRepository.findByProgramId(programId);
     }
     public List<Student> getStudentByCode(String code){
 
         return  studentRepository.findByCode(code);
     }
-    public Student saveStudent(Student student){
-        return studentRepository.save(student);
+    public StudentRepense saveStudent(StudentRequest studentRequest){
+        Student student = studentMapper.toEntity(studentRequest);
+        Student saveStudent = studentRepository.save(student);
+
+
+        return studentMapper.toDto(saveStudent) ;
     }
 
     public void deleteStudent(Long id){
@@ -68,21 +71,19 @@ public class StudentService {
             studentRepository.deleteById(id);
     }
 
-    public Student updateStudent(Long id,Student newStudent) {
+    public StudentRepense updateStudent(Long id,StudentRequest studentRequest) {
         Optional<Student> oldlStudent = studentRepository.findById(id);
 
-        System.out.println(studentRepository.findById(id));
-
         if (oldlStudent.isPresent()) {
+            Student student = oldlStudent.get();
+            student.setFirstName(studentRequest.getFirstName());
+            student.setLastName(studentRequest.getLastName());
+            student.setProgramId(studentRequest.getProgramId());
+            student.setCode(studentRequest.getCode());
+            student.setPhoto(studentRequest.getPhoto());
+            Student saveStudent = studentRepository.save(student);
 
-            Student st = oldlStudent.get();
-           // st.setId(newStudent.getId());
-            st.setFirstName(newStudent.getFirstName());
-            st.setPhoto(newStudent.getPhoto());
-            st.setCode(newStudent.getCode());
-            st.setLastName(newStudent.getLastName());
-            st.setProgramId(newStudent.getProgramId());
-            return studentRepository.save(st);
+            return studentMapper.toDto(saveStudent);
 
 
         }else{

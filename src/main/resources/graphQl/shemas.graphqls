@@ -1,0 +1,53 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+type Query{
+
+    getAllStudent :[StudentRepense]
+    getStudent(id:ID):StudentRepense
+    getStudentByProgramId(programId:String):[Student]
+    getStudentByCode(code:String):[Student]
+    deleteStudent(id:ID):Boolean
+
+
+
+}
+
+type Mutation{
+
+
+    createStudent(studentRequest:StudentRequest):StudentRepense
+    updateStudent(id:ID,studentRequest:StudentRequest):StudentRepense
+}
+
+type Student {
+    id:ID,
+    firstName: String,
+    lastName: String,
+    programId: String,
+    code: String,
+    photo: String
+
+}
+type StudentRepense{
+    id:ID,
+    firstName: String,
+    lastName: String,
+    programId: String,
+    code: String,
+    photo: String
+
+}
+input StudentRequest{
+
+    firstName: String,
+    lastName: String,
+    programId: String,
+    code: String,
+    photo: String
+
+
+}
+
+
