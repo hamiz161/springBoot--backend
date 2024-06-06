@@ -12,6 +12,7 @@ type Query{
 
 
 
+
 }
 
 type Mutation{
@@ -19,6 +20,7 @@ type Mutation{
 
     createStudent(studentRequest:StudentRequest):StudentRepense
     updateStudent(id:ID,studentRequest:StudentRequest):StudentRepense
+
 }
 
 type Student {

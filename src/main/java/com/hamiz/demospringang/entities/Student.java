@@ -10,6 +10,9 @@ import lombok.*;
 @Entity
 
 
+
+
+
 public class Student {
 
     @Id
@@ -23,5 +26,7 @@ public class Student {
 
     private String code;
     private String photo ;
+
+
 
 }
