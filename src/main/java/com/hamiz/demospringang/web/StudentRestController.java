@@ -4,6 +4,8 @@ import com.hamiz.demospringang.Services.StudentService;
 import com.hamiz.demospringang.dtos.StudentRepense;
 import com.hamiz.demospringang.dtos.StudentRequest;
 import com.hamiz.demospringang.entities.Student;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,21 +15,23 @@ import java.util.List;
 
 @RestController
 
+@AllArgsConstructor
+
 @RequestMapping
 public class StudentRestController {
-    @Autowired
+
     private StudentService studentService;
 
     @GetMapping("/students")
     public  ResponseEntity<List<StudentRepense>>getAllStudent(){
 
-        List<StudentRepense> students = studentService.getAllStudent();
-        return ResponseEntity.ok(students);
+        List<StudentRepense> studentsRepense = studentService.getAllStudent();
+        return ResponseEntity.ok(studentsRepense);
     }
     @GetMapping("/students/{id}")
     public ResponseEntity<StudentRepense> getStudentById(@PathVariable Long id) {
-        StudentRepense student = studentService.getStudentById(id);
-        return new ResponseEntity<>(student, HttpStatus.OK);
+       StudentRepense student = studentService.getStudentById(id);
+       return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
     @DeleteMapping ("/students/{id}")
@@ -38,8 +42,8 @@ public class StudentRestController {
     }
     @GetMapping("/studentsProgram")
 
-    public List<Student> getStudentByProgramId(@RequestParam String program){
-        return studentService.getStudentByProgramId(program);
+    public List<StudentRepense> getStudentByProgramId(@RequestParam String programId){
+        return studentService.getStudentByProgramId(programId);
     }
 
     @GetMapping("/studentsCode")
